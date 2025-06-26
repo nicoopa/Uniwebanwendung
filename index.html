@@ -40,10 +40,9 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-primary mb-1 fw-bold text-xs" style="font-size: 18.2px;"><span>Ausgaben Dieser Monat&nbsp;</span></div>
-                                            <div class="text-dark mb-0 fw-bold h5"><span id="AusgabenImMonat">$40,000</span></div>
+                                            <div class="text-dark mb-0 fw-bold h5"><span id="ausgabenImMonat"> </span></div>
                                         </div>
                                         <div class="col-auto">
-                                            <!-- <i class="fas fa-calendar fa-2x text-gray-300" href="/img/icons/rotpfeil.png"></i> -->
                                             <img src="assets/img/icons/rotepfeil.png" width="32px" height="32px">
                                         </div>
                                     </div>
@@ -84,22 +83,22 @@
                                     <h3 class="mb-0"><strong><span style="color: rgb(78, 115, 223);">Neue Ausgabe</span></strong></h3>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form id ="ausgabeForm">
                                         <label class="form-label" style="margin: 1px;padding: 4px;">Name</label>
-                                        <input class="form-control" type="text" required="" style="margin: 1px;padding: 4px;">
+                                        <input id="name" class="form-control" type="text" required="" style="margin: 1px;padding: 4px;">
                                         <label class="form-label" style="margin: 1px;padding: 4px;margin-top: 5px;">Datum</label>
-                                        <input class="form-control" type="date" required="" style="margin: 1px;padding: 4px;">
+                                        <input id="datum" class="form-control" type="date" required="" style="margin: 1px;padding: 4px;">
                                         <label class="form-label" style="margin: 1px;padding: 4px;margin-top: 5px;">Kosten</label>
-                                        <input class="form-control" type="number" required="" style="margin: 1px;padding: 4px;">
+                                        <input id="kosten" class="form-control" type="number" required="" style="margin: 1px;padding: 4px;">
                                         <label class="form-label" style="margin: 1px;margin-top: 6px;">Kategorie</label>
-                                        <select class="form-select">
+                                        <select id="kategorie" class="form-select">
                                             <option value="1"> Wohnen </option>
                                             <option value="2"> Ernährung </option>
                                             <option value="3"> Mobilität </option>
                                             <option value="4"> Medien </option>
                                             <option value="5"> Sonstiges  </option>
                                         </select>
-                                        <input class="btn btn-primary" type="submit" style="margin: 0px;margin-top: 9px;">
+                                        <input class="btn btn-primary" type="submit"  style="margin: 0px;margin-top: 9px;">
                                     </form>
                                 </div>
                             </div>
@@ -187,8 +186,8 @@
                                     <h3 class="mb-0"><strong><span style="color: rgb(78, 115, 223);">Letzte Ausgaben</span></strong></h3>
                                 </div>
                                 <div class="card-body">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
+                                    <ul class="list-group list-group-flush" id="ausgabenListe">
+                                        <!-- <li class="list-group-item">
                                             <div class="row align-items-center no-gutters">
                                                 <div class="col col-xxl-2"><span>Datum</span></div>
                                                 <div class="col col-xxl-4 me-2">
@@ -217,7 +216,8 @@
                                                 <div class="col col-xxl-2"><span>Preis</span></div>
                                                 <div class="col-auto col-xxl-2"><span>Text</span></div>
                                             </div>
-                                        </li>
+                                        </li> -->
+
                                     </ul>
                                 </div>
                             </div>

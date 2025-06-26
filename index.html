@@ -143,23 +143,25 @@
                                 <div class="card-header py-3">
                                     <h3 class="text-primary m-0 fw-bold">Einkaufsliste</h3>
                                 </div>
-                                <ul id="einkaufsListe" class="list-group list-group-flush">
-                                    <!-- Modal -->
-                                    <div id="popupModal" class="modal-backdrop" style="display:none;">
-                                        <div class="modal-content">
-                                            <form id="popupForm">
-                                                <h5>Neue Ausgabe</h5>
-                                                <input id="eintragName" type="text" class="form-control" placeholder="Name" required />
-                                                <input id="eintragKosten" type="number" class="form-control" placeholder="Kosten" step="0.01" required />
-                                                <button type="submit" class="btn btn-success mt-2">Speichern</button>
-                                                <button type="button" id="closeModalBtn" class="btn btn-secondary mt-2">Abbrechen</button>
-                                            </form>
+                                <div class="card-body">
+                                    <ul id="einkaufsListe" class="list-group list-group-flush">
+                                        <!-- Modal -->
+                                        <div id="popupModal" class="modal-backdrop" style="display:none;">
+                                            <div class="modal-content">
+                                                <form id="popupForm">
+                                                    <h5>Neue Ausgabe</h5>
+                                                    <input id="eintragName" type="text" class="form-control" placeholder="Name" required />
+                                                    <input id="eintragKosten" type="number" class="form-control" placeholder="Kosten" step="0.01" required />
+                                                    <button type="submit" class="btn btn-success mt-2">Speichern</button>
+                                                    <button type="button" id="closeModalBtn" class="btn btn-secondary mt-2">Abbrechen</button>
+                                                </form>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- Modal ende -->
-                                    <button id="openModalBtn" class="btn btn-primary" type="button" style="text-align: center;box-shadow: 0px 0px;padding-top: 6px;">Hinzufügen</button>
-                                    </li>
-                                </ul>
+                                        <!-- Modal ende -->
+                                        <button id="openModalBtn" class="btn btn-primary" type="button" style="text-align: center;box-shadow: 0px 0px;padding-top: 6px;">Hinzufügen</button>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="col">

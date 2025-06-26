@@ -113,28 +113,35 @@ form.addEventListener("submit", function(e) {
     }
 
     const li = document.createElement("li");
-    li.className = "list-item";
+    li.className = "list-item-einkauf";
     li.style.display = "flex";
     li.style.justifyContent = "space-between";
     li.style.alignItems = "center";
-    // Checkbox zum Entfernen
+    // Linke Seite: Name
+    const nameSpan = document.createElement("span");
+    nameSpan.textContent = name;
+
+    // Rechte Seite: Preis + Checkbox
+    const rightSpan = document.createElement("span");
+
+    const preisSpan = document.createElement("span");
+    preisSpan.textContent = `${kosten} €`;
+
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.className = "form-check-input me-2";
+    checkbox.className = "form-check-input ms-2"; // Bootstrap-Stil
     checkbox.addEventListener("change", function() {
         if (this.checked) {
             li.remove();
         }
     });
 
-    const label = document.createElement("label");
-    label.innerHTML = `<strong>${name}</strong> – ${kosten} €`;
+    rightSpan.appendChild(preisSpan);
+    rightSpan.appendChild(checkbox);
 
-    li.appendChild(label);
+    li.appendChild(nameSpan);
+    li.appendChild(rightSpan);
     liste.appendChild(li);
-    li.appendChild(checkbox);
-
-
 
     form.reset();
     popupModal.style.display = "none";

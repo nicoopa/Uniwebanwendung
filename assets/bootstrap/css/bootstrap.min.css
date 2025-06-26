@@ -658,6 +658,9 @@ progress {
     margin-right: .5rem
 }
 
+.list-item-einkauf {
+    margin-top: 10px;
+}
 .initialism {
     font-size: 0.875em;
     text-transform: uppercase

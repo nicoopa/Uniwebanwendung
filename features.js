@@ -53,31 +53,38 @@ const ausgabenMonat = () => {
 const letzten5Ausgaben = () => {
 
     const alleAusgaben = window.localStorage.getItem('ausgaben') ? Array.from(JSON.parse(window.localStorage.getItem('ausgaben'))) : []
-    const sort = alleAusgaben.sort((a, b) => {
-        return a > b
-    })
+    //const sort = alleAusgaben.sort((a, b) => {
+   //     return a > b
+   // })
+    alleAusgaben.sort((a, b) => new Date(b.datum) - new Date(a.datum));
 
-    return sort.slice(0, 5)
+    return alleAusgaben.slice(0, 5)
 
 }
-
 
 // Funktion zum Anzeigen der letzten 5 Ausgaben
 const zeigeAusgaben = () => {
     const ausgaben = letzten5Ausgaben();
     const liste = document.getElementById('ausgabenListe');
-    liste.innerHTML = ''; // alte Einträge löschen
 
+    liste.innerHTML = ''; // alte Einträge löschen
+    const kategorien = {
+        1: "Wohnen",
+        2: "Ernährung",
+        3: "Mobilität",
+        4: "Medien",
+        5: "Sonstiges"
+    };
     ausgaben.forEach(eintrag => {
         const html = `
             <li class="list-group-item">
                 <div class="row align-items-center no-gutters">
-                    <div class="col col-xxl-2"><span>${eintrag.datum}</span></div>
+                    <div class="col col-xxl-3"><span>${eintrag.datum}</span></div>
                     <div class="col col-xxl-4 me-2">
                         <h6 class="mb-0"><strong>${eintrag.name}</strong></h6>
                     </div>
                     <div class="col col-xxl-2"><span>${eintrag.kosten.toFixed(2)} €</span></div>
-                    <div class="col-auto col-xxl-2"><span>${eintrag.kategorie}</span></div>
+                    <div class="col-auto col-xxl-2"><span>${kategorien[eintrag.kategorie]}</span></div>
                 </div>
             </li>
         `;

@@ -143,39 +143,21 @@
                                 <div class="card-header py-3">
                                     <h3 class="text-primary m-0 fw-bold">Einkaufsliste</h3>
                                 </div>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col me-2">
-                                                <h6 class="mb-0"><strong>Objekt</strong></h6>
-                                            </div>
-                                            <div class="col col-xxl-3"><span>Preis</span></div>
-                                            <div class="col-auto">
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1"><label class="form-check-label" for="formCheck-1"></label></div>
-                                            </div>
+                                <ul id="einkaufsListe" class="list-group list-group-flush">
+                                    <!-- Modal -->
+                                    <div id="popupModal" class="modal-backdrop" style="display:none;">
+                                        <div class="modal-content">
+                                            <form id="popupForm">
+                                                <h5>Neue Ausgabe</h5>
+                                                <input id="eintragName" type="text" class="form-control" placeholder="Name" required />
+                                                <input id="eintragKosten" type="number" class="form-control" placeholder="Kosten" step="0.01" required />
+                                                <button type="submit" class="btn btn-success mt-2">Speichern</button>
+                                                <button type="button" id="closeModalBtn" class="btn btn-secondary mt-2">Abbrechen</button>
+                                            </form>
                                         </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col me-2">
-                                                <h6 class="mb-0"><strong>Lunch meeting</strong></h6>
-                                            </div>
-                                            <div class="col col-xxl-3"><span>Text</span></div>
-                                            <div class="col-auto">
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2"><label class="form-check-label" for="formCheck-2"></label></div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <div class="row align-items-center no-gutters">
-                                            <div class="col me-2">
-                                                <h6 class="mb-0"><strong>Lunch meeting</strong></h6>
-                                            </div>
-                                            <div class="col col-xxl-3"><span>Text</span></div>
-                                            <div class="col-auto">
-                                                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-3"><label class="form-check-label" for="formCheck-3"></label></div>
-                                            </div>
-                                        </div><button class="btn btn-primary" type="button" style="text-align: center;box-shadow: 0px 0px;padding-top: 6px;">Hinzufügen</button>
+                                    </div>
+                                    <!-- Modal ende -->
+                                    <button id="openModalBtn" class="btn btn-primary" type="button" style="text-align: center;box-shadow: 0px 0px;padding-top: 6px;">Hinzufügen</button>
                                     </li>
                                 </ul>
                             </div>
@@ -187,37 +169,7 @@
                                 </div>
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush" id="ausgabenListe">
-                                        <!-- <li class="list-group-item">
-                                            <div class="row align-items-center no-gutters">
-                                                <div class="col col-xxl-2"><span>Datum</span></div>
-                                                <div class="col col-xxl-4 me-2">
-                                                    <h6 class="mb-0"><strong>Name</strong></h6>
-                                                </div>
-                                                <div class="col col-xxl-2"><span>Preis</span></div>
-                                                <div class="col-auto col-xxl-2"><span>Text</span></div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="row align-items-center no-gutters">
-                                                <div class="col col-xxl-2"><span>Datum</span></div>
-                                                <div class="col col-xxl-4 me-2">
-                                                    <h6 class="mb-0"><strong>Name</strong></h6>
-                                                </div>
-                                                <div class="col col-xxl-2"><span>Preis</span></div>
-                                                <div class="col-auto col-xxl-2"><span>Text</span></div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <div class="row align-items-center no-gutters">
-                                                <div class="col col-xxl-2"><span>Datum</span></div>
-                                                <div class="col col-xxl-4 me-2">
-                                                    <h6 class="mb-0"><strong>Name</strong></h6>
-                                                </div>
-                                                <div class="col col-xxl-2"><span>Preis</span></div>
-                                                <div class="col-auto col-xxl-2"><span>Text</span></div>
-                                            </div>
-                                        </li> -->
-
+                                        <!-- einfügen geht über JS -->
                                     </ul>
                                 </div>
                             </div>

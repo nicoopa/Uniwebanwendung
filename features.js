@@ -61,8 +61,8 @@ const letzten5Ausgaben = () => {
 
 }
 
-document.querySelector("#ausgabenImMonat").innerHTML = `${ausgabenMonat()} €`
 
+// Funktion zum Anzeigen der letzten 5 Ausgaben
 const zeigeAusgaben = () => {
     const ausgaben = letzten5Ausgaben();
     const liste = document.getElementById('ausgabenListe');
@@ -88,3 +88,54 @@ const zeigeAusgaben = () => {
 // Beim Laden der Seite ausführen
 window.addEventListener('DOMContentLoaded', zeigeAusgaben);
 
+
+// Einkaufsliste Hinzufügen und entfernen
+const openModalBtn = document.getElementById("openModalBtn");
+const closeModalBtn = document.getElementById("closeModalBtn");
+const popupModal = document.getElementById("popupModal");
+const form = document.getElementById("popupForm");
+const liste = document.getElementById("einkaufsListe");
+
+// Öffnen & Schließen
+openModalBtn.addEventListener("click", () => popupModal.style.display = "flex");
+closeModalBtn.addEventListener("click", () => popupModal.style.display = "none");
+
+// Formular abschicken
+form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById("eintragName").value.trim();
+    const kosten = parseFloat(document.getElementById("eintragKosten").value).toFixed(2);
+
+    if (!name || isNaN(kosten)) {
+        alert("Bitte gültige Daten eingeben.");
+        return;
+    }
+
+    const li = document.createElement("li");
+    li.className = "list-item";
+    li.style.display = "flex";
+    li.style.justifyContent = "space-between";
+    li.style.alignItems = "center";
+    // Checkbox zum Entfernen
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.className = "form-check-input me-2";
+    checkbox.addEventListener("change", function() {
+        if (this.checked) {
+            li.remove();
+        }
+    });
+
+    const label = document.createElement("label");
+    label.innerHTML = `<strong>${name}</strong> – ${kosten} €`;
+
+    li.appendChild(label);
+    liste.appendChild(li);
+    li.appendChild(checkbox);
+
+
+
+    form.reset();
+    popupModal.style.display = "none";
+});

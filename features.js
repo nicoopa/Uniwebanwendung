@@ -7,8 +7,8 @@ document.getElementById('ausgabeForm').addEventListener('submit', (e) => {
     const kategorie = document.getElementById('kategorie').value;
 
     neueAusgabe(name, datum, kosten, kategorie);
-    console.log(`Neue Ausgabe: ${name}, Datum: ${datum}, Kosten: ${kosten}, Kategorie: ${kategorie}`);
     // Ansicht aktualisieren
+
     document.querySelector("#ausgabenImMonat").innerHTML = `${ausgabenMonat()} €`;
     zeigeAusgaben();
 
@@ -18,7 +18,7 @@ document.getElementById('ausgabeForm').addEventListener('submit', (e) => {
 
 const neueAusgabe = (name, datum, kosten, kategorie) => {
 
-    const neuesAusgabenJSONobejekt = {
+    const neuesAusgabenJSONobjekt = {
         name,
         datum,
         kosten: parseFloat(kosten),
@@ -26,7 +26,7 @@ const neueAusgabe = (name, datum, kosten, kategorie) => {
     }
 
     const aktuelleAusgaben = window.localStorage.getItem('ausgaben') ? Array.from(JSON.parse(window.localStorage.getItem('ausgaben'))) : []
-    aktuelleAusgaben.push(neuesAusgabenJSONobejekt)
+    aktuelleAusgaben.push(neuesAusgabenJSONobjekt)
     window.localStorage.setItem("ausgaben", JSON.stringify(aktuelleAusgaben))
 
 }
@@ -35,18 +35,17 @@ const ausgabenMonat = () => {
 
     const alleAusgaben = window.localStorage.getItem('ausgaben') ? Array.from(JSON.parse(window.localStorage.getItem('ausgaben'))) : []
     const date = new Date().getTime()
-    const monat = 60 * 60 * 24 * 30
+    const monat = 60 * 60 * 24 * 30* 1000
 
-
-    const neuesAusgabenJSONobejekt = alleAusgaben.filter(value => {
-
-        const valueDate = new Date(value.datum).getTime()
+    const neuesAusgabenJSONobjekt = alleAusgaben.filter(value => {
+        const valueDate = new Date(`${value.datum}T00:00:00`).getTime();
         return (date - monat) <= valueDate && valueDate <= date
 
     })
-    return neuesAusgabenJSONobejekt.reduce((accumulator, currentValue) => {
+    return neuesAusgabenJSONobjekt.reduce((accumulator, currentValue) => {
         return accumulator + currentValue.kosten
     }, 0)
+
 
 }
 

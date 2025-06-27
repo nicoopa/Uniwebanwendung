@@ -11,11 +11,18 @@ document.getElementById('ausgabeForm').addEventListener('submit', (e) => {
 
     document.querySelector("#ausgabenImMonat").innerHTML = `${ausgabenMonat()} €`;
     zeigeAusgaben();
-
+    saldoletzterMonat();
     // Optional: Formular zurücksetzen
     e.target.reset();
 });
-
+window.addEventListener("DOMContentLoaded", () => {
+    // Ausgaben im Monat direkt anzeigen
+    const monatSumme = ausgabenMonat().toFixed(2);
+    document.getElementById("ausgabenImMonat").textContent = `${monatSumme} €`;
+    // Auch die letzten 5 Einträge anzeigen
+    zeigeAusgaben();
+    saldoletzterMonat();
+});
 const neueAusgabe = (name, datum, kosten, kategorie) => {
 
     const neuesAusgabenJSONobjekt = {
@@ -30,7 +37,7 @@ const neueAusgabe = (name, datum, kosten, kategorie) => {
     window.localStorage.setItem("ausgaben", JSON.stringify(aktuelleAusgaben))
 
 }
-
+//Berechnung der Ausgaben vom letzten Monat
 const ausgabenMonat = () => {
 
     const alleAusgaben = window.localStorage.getItem('ausgaben') ? Array.from(JSON.parse(window.localStorage.getItem('ausgaben'))) : []
@@ -46,15 +53,12 @@ const ausgabenMonat = () => {
         return accumulator + currentValue.kosten
     }, 0)
 
-
 }
 
 const letzten5Ausgaben = () => {
 
     const alleAusgaben = window.localStorage.getItem('ausgaben') ? Array.from(JSON.parse(window.localStorage.getItem('ausgaben'))) : []
-    //const sort = alleAusgaben.sort((a, b) => {
-   //     return a > b
-   // })
+
     alleAusgaben.sort((a, b) => new Date(b.datum) - new Date(a.datum));
 
     return alleAusgaben.slice(0, 5)
@@ -106,6 +110,7 @@ const liste = document.getElementById("einkaufsListe");
 openModalBtn.addEventListener("click", () => popupModal.style.display = "flex");
 closeModalBtn.addEventListener("click", () => popupModal.style.display = "none");
 
+
 // Formular abschicken
 form.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -152,3 +157,12 @@ form.addEventListener("submit", function(e) {
     form.reset();
     popupModal.style.display = "none";
 });
+
+document.getElementById("einnahmenMonat").textContent = 4300 + " €";
+
+const saldoletzterMonat = () => {
+    const ausgaben = ausgabenMonat();
+    const einnahmen =parseFloat(document.getElementById("einnahmenMonat").textContent) // Beispielwert für Einnahmen
+    const saldo = (einnahmen - ausgaben).toFixed(2);
+    document.getElementById("saldo").textContent = saldo + " €";
+}

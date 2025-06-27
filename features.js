@@ -232,6 +232,102 @@ const aktualisiereKategorienChart = () => {
     });
 };
 
+//Erschaffen des Charts für den Ausgabenverlauf
+document.addEventListener("DOMContentLoaded", function ()
+    {
+    const ctx = document.getElementById("saldoChart").getContext("2d");
+
+    // Hole Daten aus localStorage
+    const rawData = localStorage.getItem("saldoVerlauf");
+    let saldoData = [];
+
+    try {
+    saldoData = JSON.parse(rawData) || [];
+} catch (e) {
+    console.error("Fehler beim Laden der Saldo-Daten:", e);
+}
+
+    const labels = saldoData.map(e => e.monat);
+    const data = saldoData.map(e => e.saldo);
+
+    new Chart(ctx, {
+    type: 'line',
+    data: {
+    labels: labels,
+    datasets: [{
+    label: "Saldo",
+    data: data,
+    fill: true,
+    backgroundColor: "rgba(78, 115, 223, 0.05)",
+    borderColor: "rgba(78, 115, 223, 1)",
+    tension: 0.4
+}]
+},
+    options: {
+    maintainAspectRatio: false,
+    scales: {
+    x: {
+    ticks: { color: "#858796" },
+    grid: {
+    drawBorder: false,
+    drawOnChartArea: false
+}
+},
+    y: {
+    ticks: { color: "#858796" },
+    grid: {
+    borderDash: [2],
+    zeroLineBorderDash: [2]
+}
+}
+},
+    plugins: {
+    legend: {
+    display: false
+}
+}
+}
+});
+});
+
+const saldenLetzte6Monate = () => {
+    const alleAusgaben = window.localStorage.getItem('ausgaben')
+        ? JSON.parse(window.localStorage.getItem('ausgaben'))
+        : [];
+
+    const jetzt = new Date();
+
+    // Array der letzten 6 Monate im Format "YYYY-MM"
+    let monate = [];
+    for(let i = 5; i >= 0; i--) {
+        const d = new Date(jetzt.getFullYear(), jetzt.getMonth() - i, 1);
+        monate.push(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`);
+    }
+
+    // Objekt für Salden mit Monatsnamen als Key
+    let saldoMap = {};
+    monate.forEach(m => saldoMap[m] = 0);
+
+    // Alle Ausgaben durchgehen und nach Monat summieren
+    alleAusgaben.forEach(({datum, kosten}) => {
+        // Monat aus dem Datum extrahieren
+        const d = new Date(`${datum}T00:00:00`);
+        const monatStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+
+        if (saldoMap.hasOwnProperty(monatStr)) {
+            saldoMap[monatStr] += kosten;
+        }
+    });
+
+    // Ergebnis als Array mit Monat und Saldo in der Reihenfolge der letzten 6 Monate
+    return monate.map(monat => ({monat, saldo: saldoMap[monat]}));
+}
+
+
+const saldoVerlauf = saldenLetzte6Monate();
+console.log(saldoVerlauf); // z. B. [{monat: "Jan", saldo: 800}, ...]
+
+localStorage.setItem("saldoVerlauf", JSON.stringify(saldoVerlauf));
 
 
 

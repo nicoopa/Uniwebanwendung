@@ -12,6 +12,8 @@ document.getElementById('ausgabeForm').addEventListener('submit', (e) => {
     document.querySelector("#ausgabenImMonat").innerHTML = `${ausgabenMonat()} €`;
     zeigeAusgaben();
     saldoletzterMonat();
+    aktualisiereKategorienChart();
+
     // Optional: Formular zurücksetzen
     e.target.reset();
 });
@@ -22,6 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // Auch die letzten 5 Einträge anzeigen
     zeigeAusgaben();
     saldoletzterMonat();
+    aktualisiereKategorienChart();
 });
 const neueAusgabe = (name, datum, kosten, kategorie) => {
 
@@ -158,11 +161,77 @@ form.addEventListener("submit", function(e) {
     popupModal.style.display = "none";
 });
 
+// Beispielhafte Einnahmen für den Monat
 document.getElementById("einnahmenMonat").textContent = 4300 + " €";
 
+// Berechnung des Saldos für den letzten Monat
 const saldoletzterMonat = () => {
     const ausgaben = ausgabenMonat();
     const einnahmen =parseFloat(document.getElementById("einnahmenMonat").textContent) // Beispielwert für Einnahmen
     const saldo = (einnahmen - ausgaben).toFixed(2);
     document.getElementById("saldo").textContent = saldo + " €";
 }
+
+let kategorienChartInstance; // Globale Chart-Instanz
+
+const aktualisiereKategorienChart = () => {
+    const rawData = JSON.parse(window.localStorage.getItem("ausgaben")) || [];
+
+    const kategorienMap = {
+        1: "Wohnen",
+        2: "Ernährung",
+        3: "Mobilität",
+        4: "Medien",
+        5: "Sonstiges"
+    };
+
+    const kategorienSumme = {
+        "Wohnen": 0,
+        "Ernährung": 0,
+        "Mobilität": 0,
+        "Medien": 0,
+        "Sonstiges": 0
+    };
+
+    rawData.forEach(ausgabe => {
+        const katName = kategorienMap[ausgabe.kategorie];
+        if (katName) {
+            kategorienSumme[katName] += parseFloat(ausgabe.kosten) || 0;
+        }
+    });
+
+    const labels = Object.keys(kategorienSumme);
+    const daten = Object.values(kategorienSumme);
+
+    const ctx = document.getElementById("kategorienChart").getContext("2d");
+
+    // Falls bereits ein Chart existiert → zerstören
+    if (kategorienChartInstance) {
+        kategorienChartInstance.destroy();
+    }
+
+    kategorienChartInstance = new Chart(ctx, {
+        type: "doughnut",
+        data: {
+            labels: labels,
+            datasets: [{
+                data: daten,
+                backgroundColor: ["#4e73df", "#1cc88a", "#36b9cc", "#f6c23e", "#e74a3b"],
+                borderColor: ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true
+                }
+            }
+        }
+    });
+};
+
+
+
+
